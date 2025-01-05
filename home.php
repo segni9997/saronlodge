@@ -38,7 +38,7 @@
   </nav>
 
   <!-- Hero Section -->
-  <header class="hero bg-primary text-white text-center py-5">
+  <header class="hero bg-primary text-white text-center py-5 h-950">
     <div class="container">
       <h1 class="display-4">Welcome to Our Hotel</h1>
       <p class="lead">Experience luxury and comfort with our world-class services</p>

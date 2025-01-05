@@ -70,6 +70,21 @@ if ($_SESSION['role_name'] === 'Receptionist') {
                 </li>
             <?php }
         }
+        if ($_SESSION['role_name'] === 'Receptionist') { 
+            if (isset($_GET['check_payement'])) { ?>
+                <li class="active">
+                    <a href="index.php?check_payement"><em class="fa fa-users">&nbsp;</em>
+                        Check Online Payement
+                    </a>
+                </li>
+            <?php } else { ?>
+                <li>
+                    <a href="index.php?check_payement"><em class="fa fa-users">&nbsp;</em>
+                        Check Online Payement
+                    </a>
+                </li>
+            <?php }
+        }
         if (isset($_GET['complain'])) { ?>
             <li class="active">
                 <a href="index.php?complain"><em class="fa fa-comments">&nbsp;</em>

@@ -165,6 +165,7 @@ if (isset($_POST['booking'])) {
     $id_card_id = $_POST['id_card_id'];
     $id_card_no = $_POST['id_card_no'];
     $address = $_POST['address'];
+    $payment_proof = isset($_FILES['payment_proof']) ? $_FILES['payment_proof'] : null; 
 
     $customer_sql = "INSERT INTO customer (customer_name,contact_no,email,id_card_type_id,id_card_no,address) VALUES ('$name','$contact_no','$email','$id_card_id','$id_card_no','$address')";
     $customer_result = mysqli_query($connection, $customer_sql);
@@ -176,6 +177,48 @@ if (isset($_POST['booking'])) {
         if ($booking_result) {
             $room_stats_sql = "UPDATE room SET status = '1' WHERE room_id = '$room_id'";
             if (mysqli_query($connection, $room_stats_sql)) {
+                // Handle payment proof upload (optional)
+                if (!empty($payment_proof)) {
+                    // Define upload directory
+                    $upload_dir = "uploads/"; // Replace with your desired upload directory
+                    $target_file = $upload_dir . basename($payment_proof["name"]);
+
+                    // Check if file already exists
+                    if (file_exists($target_file)) {
+                        $target_file = $upload_dir . time() . "_" . basename($payment_proof["name"]);
+                    }
+
+                    // Check file type
+                    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                    $allowed_extensions = array("jpg", "jpeg", "png", "gif");
+                    if(in_array($imageFileType,$allowed_extensions)) {
+                        // Check if file is an actual image or fake image
+                        if(getimagesize($_FILES["payment_proof"]["tmp_name"])) {
+                            // Check if $upload_ok is set to 0 by an error
+                            if ($upload_ok == 0) {
+                                // If everything is ok, try to upload file
+                                if (move_uploaded_file($_FILES["payment_proof"]["tmp_name"], $target_file)) {
+                                    // Update database with payment proof path (if needed)
+                                    $update_sql = "UPDATE booking SET payment_proof = '$target_file' WHERE id = LAST_INSERT_ID()"; 
+                                    mysqli_query($connection, $update_sql); 
+                                } else {
+                                    $response['done'] = false;
+                                    $response['data'] = "Error uploading payment proof.";
+                                }
+                            } else {
+                                $response['done'] = false;
+                                $response['data'] = "Error: " . $file_error_array[$file_errors];
+                            }
+                        } else {
+                            $response['done'] = false;
+                            $response['data'] = "File is not an image.";
+                        }
+                    } else {
+                        $response['done'] = false;
+                        $response['data'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                    }
+                }
+
                 $response['done'] = true;
                 $response['data'] = 'Successfully Booking';
             } else {
@@ -193,7 +236,6 @@ if (isset($_POST['booking'])) {
 
     echo json_encode($response);
 }
-
 if (isset($_POST['cutomerDetails'])) {
     //$customer_result='';
     $room_id = $_POST['room_id'];
