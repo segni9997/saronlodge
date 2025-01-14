@@ -160,7 +160,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-        <p class="back-link">Developed segni</p>
+        <p class="back-link">Developed InfoLink students</p>
         </div>
     </div>
 

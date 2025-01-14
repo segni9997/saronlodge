@@ -1,3 +1,16 @@
+<head>
+    <style>
+        .nav .active a {
+            color: #86B817 !important;
+            background-color: transparent !important;
+        }
+
+        .nav .active a:hover {
+            color: #86B817 !important;
+        }
+    </style>
+</head>
+
 <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
     <div class="profile-sidebar">
         <div class="profile-userpic">
@@ -26,22 +39,22 @@
             </li>
         <?php } 
     
+        if ($_SESSION['role_name'] === 'Receptionist') { 
+            if (isset($_GET['reservation'])) { ?>
+                <li class="active">
+                    <a href="index.php?reservation"><em class="fa fa-calendar">&nbsp;</em>
+                        Reservation
+                    </a>
+                </li>
+            <?php } else { ?>
+                <li>
+                    <a href="index.php?reservation"><em class="fa fa-calendar">&nbsp;</em>
+                        Reservation
+                    </a>
+                </li>
+            <?php }
+        }
 
-if ($_SESSION['role_name'] === 'Receptionist') { 
-    if (isset($_GET['reservation'])) { ?>
-        <li class="active">
-                <a href="index.php?reservation"><em class="fa fa-calendar">&nbsp;</em>
-                    Reservation
-                </a>
-            </li>
-    <?php } else { ?>
-        <li>
-                <a href="index.php?reservation"><em class="fa fa-calendar">&nbsp;</em>
-                    Reservation
-                </a>
-            </li>
-    <?php }
-}
         if (isset($_GET['room_mang'])) { ?>
             <li class="active">
                 <a href="index.php?room_mang"><em class="fa fa-bed">&nbsp;</em>
@@ -55,6 +68,7 @@ if ($_SESSION['role_name'] === 'Receptionist') {
                 </a>
             </li>
         <?php } 
+
         if ($_SESSION['role_name'] === 'Manager') { 
             if (isset($_GET['staff_mang'])) { ?>
                 <li class="active">
@@ -70,6 +84,7 @@ if ($_SESSION['role_name'] === 'Receptionist') {
                 </li>
             <?php }
         }
+
         if ($_SESSION['role_name'] === 'Receptionist') { 
             if (isset($_GET['check_payement'])) { ?>
                 <li class="active">
@@ -85,6 +100,7 @@ if ($_SESSION['role_name'] === 'Receptionist') {
                 </li>
             <?php }
         }
+
         if (isset($_GET['complain'])) { ?>
             <li class="active">
                 <a href="index.php?complain"><em class="fa fa-comments">&nbsp;</em>
@@ -98,6 +114,7 @@ if ($_SESSION['role_name'] === 'Receptionist') {
                 </a>
             </li>
         <?php } 
+
         if (isset($_GET['statistics'])) { ?>
             <li class="active">
                 <a href="index.php?statistics"><em class="fa fa-pie-chart">&nbsp;</em>

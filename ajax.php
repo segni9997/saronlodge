@@ -300,7 +300,9 @@ if (isset($_POST['check_in_room'])) {
         $result = mysqli_query($connection, $query);
         $booking_details = mysqli_fetch_assoc($result);
         $room_id = $booking_details['room_id'];
+        $remainingP= $booking_details['remaining_price'];
         $remaining_price = $booking_details['total_price'] - $advance_payment;
+        $remaining_price = $remaining_price - $remainingP;
 
         $updateBooking = "UPDATE booking SET remaining_price = '$remaining_price' where booking_id = '$booking_id'";
         $result = mysqli_query($connection, $updateBooking);

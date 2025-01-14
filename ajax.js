@@ -254,6 +254,8 @@ $(document).on('click', '#checkInRoom', function (e) {
                 $('#getCheckIn').html(response.check_in);
                 $('#getCheckOut').html(response.check_out);
                 $('#getTotalPrice').html(response.total_price + '/-');
+                // $('#getRemainingPrice_in').html(response.remaining_price + '/-');
+
                 $('#getBookingID').val(response.booking_id);
                 $('#checkIn').modal('show');
             } else {

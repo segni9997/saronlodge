@@ -194,7 +194,7 @@ if (isset($_GET['room_id'])){
 
     <div class="row">
         <div class="col-sm-12">
-            <p class="back-link">Developed By Segni</p>
+            <p class="back-link">Developed By InfoLink Students</p>
         </div>
     </div>
 

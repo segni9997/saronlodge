@@ -84,7 +84,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu m-0">
-                            <a href="booking.html" class="dropdown-item">Booking</a>
+                            <a href="booking.php" class="dropdown-item">Booking</a>
                             <a href="#testimonial" class="dropdown-item">Testimonial</a>
                         </div>
                     </div>

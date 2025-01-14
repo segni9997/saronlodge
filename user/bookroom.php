@@ -65,7 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 VALUES ('$customer_id', '$room_id', '$check_in_date', '$check_out_date', '$total_price','$remaining_price', '$payment_image', 0)";
 
         if (mysqli_query($connection, $sql)) {
-            echo "<script>alert('Booking submitted successfully! Waiting for approval.'); window.location.href='index.php';</script>";
+            $update_room_sql = "UPDATE room SET deleteStatus = 0 WHERE room_id = '$room_id'";
+            if (mysqli_query($connection, $update_room_sql)) {
+                    echo "<script>alert('Booking submitted successfully! Waiting for approval.'); window.location.href='index.php';</script>";
+            }
         } else {
             echo "Error: " . mysqli_error($connection);
         }

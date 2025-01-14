@@ -226,7 +226,7 @@ $room_types = $conn->query("SELECT DISTINCT room_type FROM room_type");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<div class='card border shadow-sm' style='width: 18rem;'>";
-                echo "<img src='path/to/image.jpg' class='card-img-top' alt='Room Image'>";
+                // echo "<img src='path/to/image.jpg' class='card-img-top' alt='Room Image'>";
                 echo "<div class='card-body'>";
                 echo "<h5 class='card-title'>Room " . $row['room_no'] . "</h5>";
                 echo "<p class='card-text'><strong>Type:</strong> " . $row['room_type'] . "</p>";

@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2021 at 10:41 AM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
+-- Generation Time: Jan 14, 2025 at 11:24 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `hotelms`
+-- Database: `hotelthree`
 --
 
 -- --------------------------------------------------------
@@ -30,27 +31,31 @@ CREATE TABLE `booking` (
   `booking_id` int(10) NOT NULL,
   `customer_id` int(10) NOT NULL,
   `room_id` int(10) NOT NULL,
-  `booking_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `booking_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `check_in` varchar(100) DEFAULT NULL,
   `check_out` varchar(100) NOT NULL,
   `total_price` int(10) NOT NULL,
   `remaining_price` int(10) NOT NULL,
-  `payment_status` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `payment_proof` varchar(500) DEFAULT NULL,
+  `payment_status` tinyint(1) NOT NULL,
+  `CkeckPayment` int(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `booking`
 --
 
-INSERT INTO `booking` (`booking_id`, `customer_id`, `room_id`, `booking_date`, `check_in`, `check_out`, `total_price`, `remaining_price`, `payment_status`) VALUES
-(1, 1, 5, '2017-11-13 05:45:17', '13-11-2017', '15-11-2017', 3000, 3000, 0),
-(2, 2, 2, '2017-11-13 05:46:04', '13-11-2017', '16-11-2017', 6000, 0, 1),
-(3, 3, 2, '2017-11-11 06:49:19', '11-11-2017', '14-11-2017', 6000, 3000, 0),
-(4, 4, 7, '2017-11-09 06:50:24', '11-11-2017', '15-11-2017', 10000, 10000, 0),
-(5, 5, 13, '2017-11-17 06:59:10', '17-11-2017', '20-11-2017', 12000, 0, 1),
-(6, 6, 9, '2021-04-08 09:45:56', '08-04-2021', '10-04-2021', 3000, 3000, 0),
-(7, 7, 14, '2021-04-08 17:56:41', '08-04-2021', '10-04-2021', 16500, 11500, 0),
-(8, 8, 22, '2021-04-09 08:32:57', '09-04-2021', '13-04-2021', 34500, 0, 1);
+INSERT INTO `booking` (`booking_id`, `customer_id`, `room_id`, `booking_date`, `check_in`, `check_out`, `total_price`, `remaining_price`, `payment_proof`, `payment_status`, `CkeckPayment`) VALUES
+(9, 9, 2, '2025-01-01 09:36:17', '03-01-2025', '16-01-2025', 21000, 0, NULL, 1, 1),
+(10, 10, 3, '2025-01-01 09:44:40', '', '', 0, 0, NULL, 1, 1),
+(11, 11, 2, '2025-01-01 10:03:12', '02-01-2025', '04-01-2025', 4500, 4500, NULL, 0, 1),
+(12, 12, 3, '2025-01-05 12:11:30', '07-01-2025', '11-01-2025', 10000, 10000, NULL, 0, 1),
+(13, 18, 4, '2025-01-05 13:09:49', '06-01-2025', '09-01-2025', 12000, 12000, NULL, 0, 1),
+(14, 19, 5, '2025-01-05 13:15:42', '09-01-2025', '24-01-2025', 16000, 16000, NULL, 0, 1),
+(15, 24, 8, '2025-01-05 13:40:19', '2025-01-14', '2025-01-21', 21000, 8778, 'uploads/laptop.jpg', 0, 1),
+(16, 25, 9, '2025-01-05 14:28:10', '2025-01-14', '2025-01-22', 8000, 0, 'uploads/phone.jpg', 0, 1),
+(17, 26, 24, '2025-01-05 14:33:47', '16-01-2025', '18-01-2025', 10800, 10800, NULL, 0, 1),
+(18, 27, 1, '2025-01-05 17:32:15', '2025-01-08', '2025-01-10', 3000, 750, 'uploads/proto.png', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -63,11 +68,11 @@ CREATE TABLE `complaint` (
   `complainant_name` varchar(100) NOT NULL,
   `complaint_type` varchar(100) NOT NULL,
   `complaint` varchar(200) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `resolve_status` tinyint(1) NOT NULL,
-  `resolve_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `resolve_date` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `budget` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `complaint`
@@ -77,7 +82,9 @@ INSERT INTO `complaint` (`id`, `complainant_name`, `complaint_type`, `complaint`
 (1, 'Janice Alexander\n', 'Room Windows', 'Doesnot operate properly', '2020-07-16 06:51:24', 1, '2020-07-17 06:51:58', 3600),
 (2, 'Robert Peter\n', 'Air Conditioner', 'Sensor Problems', '2020-10-01 06:51:44', 1, '2020-10-03 07:06:02', 7950),
 (3, 'Jason J Pirkle\n', 'Bad Smells', 'Some odd smells around room areas', '2018-04-01 07:01:17', 1, '2018-04-01 07:01:52', 500),
-(5, 'Will Williams', 'Faulty Electronics', 'Due to some weird reasons, the electronics are not working as it should; some voltage problems too - M-135', '2021-04-09 08:38:19', 1, '2021-04-09 08:38:39', 2500);
+(5, 'Will Williams', 'Faulty Electronics', 'Due to some weird reasons, the electronics are not working as it should; some voltage problems too - M-135', '2021-04-09 08:38:19', 1, '2021-04-09 08:38:39', 2500),
+(6, 'rasta ', 'Shower', 'shower in many rooms is not functioning', '2025-01-01 08:45:01', 1, '2025-01-01 08:45:13', 100),
+(7, 'Abeni', 'Room door', 'ROm A02  door has some noise', '2025-01-01 09:13:54', 1, '2025-01-01 09:14:58', 3255);
 
 -- --------------------------------------------------------
 
@@ -93,7 +100,7 @@ CREATE TABLE `customer` (
   `id_card_type_id` int(10) NOT NULL,
   `id_card_no` varchar(20) NOT NULL,
   `address` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `customer`
@@ -107,7 +114,26 @@ INSERT INTO `customer` (`customer_id`, `customer_name`, `contact_no`, `email`, `
 (5, 'Dwayne Scott', 2671249780, 'scottdway@gmail.com', 1, '422510099122', '4698 Columbia Road\n'),
 (6, 'Bruno Denn', 1245554780, 'denbru@gmail.com', 4, 'AASS 12454784541', '4764 Warner Street\n'),
 (7, 'Ric Austin', 2450006974, 'austinric@gmail.com', 1, '457896000002', '1680  Brownton Road'),
-(8, 'Andrew Stuartt', 2457778450, 'andrew@gmail.com', 1, '147000245810', '766  Lodgeville Road');
+(8, 'Andrew Stuartt', 2457778450, 'andrew@gmail.com', 1, '147000245810', '766  Lodgeville Road'),
+(9, 'Segni Asrat', 983604770, 'segni.836@gmail.com', 1, '453452525245225', 'Addis Ababa'),
+(10, 'Yidne Teka', 981564545, 'yidne@gmail.com', 1, '36563464563456', 'hayat'),
+(11, 'Segni Asrat', 983604770, 'segni.836@gmail.com', 1, '2344242423424234', 'Addis Ababa'),
+(12, 'Yidnee  Mitiku', 8646546789, 'yidne@gmail.com', 1, '165415674687', 'Addis Ababa'),
+(13, 'aBER Berer', 56466465465, 'segni.836@fbajak.com', 1, '234234234423', 'Bedele'),
+(14, 'aBER Berer', 56466465465, 'segni.836@fbajak.com', 1, '234234234423', 'Bedele'),
+(15, 'aBER Berer', 56466465465, 'segni.836@fbajak.com', 1, '234234234423', 'Bedele'),
+(16, 'aBER Berer', 56466465465, 'segni.836@fbajak.com', 1, '234234234423', 'Bedele'),
+(17, 'aBER Berer', 56466465465, 'segni.836@fbajak.com', 1, '234234234423', 'Bedele'),
+(18, 'aBER Berer', 56466465465, 'segni.836@fbajak.com', 1, '234234234423', 'Bedele'),
+(19, 'Amen Mitiku', 8248622585, 'amen@gmail.com', 1, '928374937439', 'Jemo'),
+(20, 'OHO Hpoo', 923940234813, 'segni.iresso@gmail.com', 1, '239874239847', 'Jemo'),
+(21, 'OHO Hpoo', 923940234813, 'segni.iresso@gmail.com', 1, '239874239847', 'Jemo'),
+(22, 'OHO Hpoo', 923940234813, 'segni.iresso@gmail.com', 1, '239874239847', 'Jemo'),
+(23, 'OHO Hpoo', 923940234813, 'segni.iresso@gmail.com', 1, '239874239847', 'Jemo'),
+(24, 'OHO Hpoo', 923940234813, 'segni.iresso@gmail.com', 1, '239874239847', 'Jemo'),
+(25, 'Bereket Tesfaye', 3245842095, 'beki@gmail.com', 1, '92347392874', 'Mekanisa'),
+(26, 'Takur TAkur', 1646164646, 'segni.iresso@gmail.com', 1, '239874239847', 'ayer tena'),
+(27, 'Yabsira Mitiku', 9283495834, 'yab@gmail.com', 1, '9837923423987', 'Jemo');
 
 -- --------------------------------------------------------
 
@@ -119,10 +145,10 @@ CREATE TABLE `emp_history` (
   `id` int(11) NOT NULL,
   `emp_id` int(11) NOT NULL,
   `shift_id` int(11) NOT NULL,
-  `from_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `from_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `to_date` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `emp_history`
@@ -160,7 +186,7 @@ INSERT INTO `emp_history` (`id`, `emp_id`, `shift_id`, `from_date`, `to_date`, `
 CREATE TABLE `id_card_type` (
   `id_card_type_id` int(10) NOT NULL,
   `id_card_type` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `id_card_type`
@@ -175,6 +201,25 @@ INSERT INTO `id_card_type` (`id_card_type_id`, `id_card_type`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `role_id` int(11) NOT NULL,
+  `role_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`role_id`, `role_name`) VALUES
+(1, 'Manager'),
+(2, 'Receptionist');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `room`
 --
 
@@ -185,28 +230,28 @@ CREATE TABLE `room` (
   `status` tinyint(1) DEFAULT NULL,
   `check_in_status` tinyint(1) NOT NULL,
   `check_out_status` tinyint(1) NOT NULL,
-  `deleteStatus` tinyint(1) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `deleteStatus` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `room`
 --
 
 INSERT INTO `room` (`room_id`, `room_type_id`, `room_no`, `status`, `check_in_status`, `check_out_status`, `deleteStatus`) VALUES
-(1, 2, 'A-101', NULL, 0, 0, 1),
-(2, 2, 'A-102', 1, 1, 1, 0),
-(3, 3, 'A-103', NULL, 0, 0, 0),
-(4, 4, 'A-104', NULL, 0, 0, 0),
+(1, 2, 'A-101', 1, 0, 0, 0),
+(2, 2, 'A-102', 1, 0, 1, 0),
+(3, 3, 'A-103', 1, 0, 1, 0),
+(4, 4, 'A-104', 1, 0, 0, 0),
 (5, 1, 'B-101', 1, 0, 0, 0),
 (6, 2, 'B-102', NULL, 0, 0, 1),
-(7, 3, 'B-103', 1, 0, 0, 0),
-(8, 4, 'B-104', NULL, 0, 0, 1),
+(7, 3, 'B-103', 0, 0, 0, 0),
+(8, 4, 'B-104', 1, 1, 0, 0),
 (9, 1, 'C-101', 1, 0, 0, 0),
 (10, 2, 'C-102', NULL, 0, 0, 0),
 (11, 3, 'C-103', NULL, 0, 0, 1),
 (12, 4, 'C-104', NULL, 0, 0, 0),
 (13, 4, 'D-101', NULL, 0, 1, 1),
-(14, 5, 'K-699', 1, 1, 0, 0),
+(14, 5, 'K-699', 0, 1, 0, 0),
 (15, 5, 'K-799', NULL, 0, 0, 0),
 (16, 5, 'K-899', NULL, 0, 0, 0),
 (17, 6, 'M-333', NULL, 0, 0, 0),
@@ -216,7 +261,7 @@ INSERT INTO `room` (`room_id`, `room_type_id`, `room_no`, `status`, `check_in_st
 (21, 10, 'M-966', NULL, 0, 0, 0),
 (22, 10, 'M-869', NULL, 0, 1, 0),
 (23, 8, 'Z-666', NULL, 0, 0, 0),
-(24, 7, 'X-969', NULL, 0, 0, 0),
+(24, 7, 'X-969', 1, 0, 0, 0),
 (25, 8, 'Z-111', NULL, 0, 0, 0),
 (26, 6, 'M-135', NULL, 0, 0, 0);
 
@@ -231,7 +276,7 @@ CREATE TABLE `room_type` (
   `room_type` varchar(100) NOT NULL,
   `price` int(10) NOT NULL,
   `max_person` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `room_type`
@@ -259,7 +304,7 @@ CREATE TABLE `shift` (
   `shift_id` int(10) NOT NULL,
   `shift` varchar(100) NOT NULL,
   `shift_timing` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `shift`
@@ -287,9 +332,9 @@ CREATE TABLE `staff` (
   `address` varchar(100) NOT NULL,
   `contact_no` bigint(20) NOT NULL,
   `salary` bigint(20) NOT NULL,
-  `joining_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `joining_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `staff`
@@ -319,7 +364,7 @@ INSERT INTO `staff` (`emp_id`, `emp_name`, `staff_type_id`, `shift_id`, `id_card
 CREATE TABLE `staff_type` (
   `staff_type_id` int(10) NOT NULL,
   `staff_type` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `staff_type`
@@ -347,17 +392,18 @@ CREATE TABLE `user` (
   `name` varchar(100) NOT NULL,
   `username` varchar(15) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `password` varchar(255) NOT NULL,
+  `role_id` int(11) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `username`, `email`, `password`, `created_at`) VALUES
-(2, 'Christine', 'christine', 'christine@gmail.com', 'fb1e75090b96d2e0abec0ec980c2f392', '2015-11-12 12:49:22'),
-(3, 'Harry Denn', 'harryden', 'harryden@gmail.com', 'd0a512f262ed34abed0c45cefe08c429', '2016-04-01 12:49:22');
+INSERT INTO `user` (`id`, `name`, `username`, `email`, `password`, `role_id`, `created_at`) VALUES
+(4, 'segni asrat', 'segni', 'segni@gmail.com', '95d20c36fea89ec028078a5cf6baaf61', 1, '2024-12-26 19:37:34'),
+(5, 'Meti Asrat', 'meti', 'meti@gmail.com', '64b7d8fba55ef0c3ad14662bde602696', 2, '2024-12-26 19:37:34');
 
 --
 -- Indexes for dumped tables
@@ -399,6 +445,13 @@ ALTER TABLE `id_card_type`
   ADD PRIMARY KEY (`id_card_type_id`);
 
 --
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`role_id`),
+  ADD UNIQUE KEY `role_name` (`role_name`);
+
+--
 -- Indexes for table `room`
 --
 ALTER TABLE `room`
@@ -436,7 +489,10 @@ ALTER TABLE `staff_type`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `role_id` (`role_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -446,94 +502,84 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `booking_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `booking_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
 --
 -- AUTO_INCREMENT for table `complaint`
 --
 ALTER TABLE `complaint`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `customer_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
 --
 -- AUTO_INCREMENT for table `emp_history`
 --
 ALTER TABLE `emp_history`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
 --
 -- AUTO_INCREMENT for table `id_card_type`
 --
 ALTER TABLE `id_card_type`
   MODIFY `id_card_type_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `room`
 --
 ALTER TABLE `room`
   MODIFY `room_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
 --
 -- AUTO_INCREMENT for table `room_type`
 --
 ALTER TABLE `room_type`
   MODIFY `room_type_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `shift`
 --
 ALTER TABLE `shift`
   MODIFY `shift_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
   MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
 -- AUTO_INCREMENT for table `staff_type`
 --
 ALTER TABLE `staff_type`
   MODIFY `staff_type_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `booking`
+-- Constraints for table `user`
 --
-ALTER TABLE `booking`
-  ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
-  ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`);
-
---
--- Constraints for table `customer`
---
-ALTER TABLE `customer`
-  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`id_card_type_id`) REFERENCES `id_card_type` (`id_card_type_id`);
-
---
--- Constraints for table `emp_history`
---
-ALTER TABLE `emp_history`
-  ADD CONSTRAINT `emp_history_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `staff` (`emp_id`),
-  ADD CONSTRAINT `emp_history_ibfk_2` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`shift_id`);
-
---
--- Constraints for table `room`
---
-ALTER TABLE `room`
-  ADD CONSTRAINT `room_ibfk_1` FOREIGN KEY (`room_type_id`) REFERENCES `room_type` (`room_type_id`);
-
---
--- Constraints for table `staff`
---
-ALTER TABLE `staff`
-  ADD CONSTRAINT `staff_ibfk_1` FOREIGN KEY (`id_card_type`) REFERENCES `id_card_type` (`id_card_type_id`),
-  ADD CONSTRAINT `staff_ibfk_2` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`shift_id`),
-  ADD CONSTRAINT `staff_ibfk_3` FOREIGN KEY (`staff_type_id`) REFERENCES `staff_type` (`staff_type_id`);
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

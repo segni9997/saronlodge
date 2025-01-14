@@ -315,9 +315,14 @@ if ($_SESSION['role_name'] == 'Manager') {
                                     <td id="getCheckOut"></td>
                                 </tr>
                                 <tr>
+                                    <td><b>Remaining Amount</b></td>
+                                    <td id="getRemainingPrice_in"></td>
+                                </tr>
+                                <tr>
                                     <td><b>Total Price</b></td>
                                     <td id="getTotalPrice"></td>
                                 </tr>
+                              
                                 </tbody>
                             </table>
                             <form role="form" id="advancePayment">
@@ -408,7 +413,7 @@ if ($_SESSION['role_name'] == 'Manager') {
     <div class="row">
         <div class="col-sm-12">
         <p class="back-link">Developed By 
-            Segni Asrat
+            InfoLink  student
         </p>
         </div>
     </div>
