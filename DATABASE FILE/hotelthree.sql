@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 14, 2025 at 11:24 AM
+-- Generation Time: Jan 14, 2025 at 10:16 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -55,7 +55,9 @@ INSERT INTO `booking` (`booking_id`, `customer_id`, `room_id`, `booking_date`, `
 (15, 24, 8, '2025-01-05 13:40:19', '2025-01-14', '2025-01-21', 21000, 8778, 'uploads/laptop.jpg', 0, 1),
 (16, 25, 9, '2025-01-05 14:28:10', '2025-01-14', '2025-01-22', 8000, 0, 'uploads/phone.jpg', 0, 1),
 (17, 26, 24, '2025-01-05 14:33:47', '16-01-2025', '18-01-2025', 10800, 10800, NULL, 0, 1),
-(18, 27, 1, '2025-01-05 17:32:15', '2025-01-08', '2025-01-10', 3000, 750, 'uploads/proto.png', 0, 1);
+(18, 27, 1, '2025-01-05 17:32:15', '2025-01-08', '2025-01-10', 3000, 750, 'uploads/proto.png', 0, 1),
+(19, 28, 6, '2025-01-14 19:49:34', '2025-01-15', '2025-01-18', 4500, 4300, 'uploads/err.jpg', 0, 1),
+(20, 29, 10, '2025-01-14 20:36:03', '2025-01-24', '2025-01-29', 7500, 1875, 'uploads/Screenshot (77).png', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -133,7 +135,9 @@ INSERT INTO `customer` (`customer_id`, `customer_name`, `contact_no`, `email`, `
 (24, 'OHO Hpoo', 923940234813, 'segni.iresso@gmail.com', 1, '239874239847', 'Jemo'),
 (25, 'Bereket Tesfaye', 3245842095, 'beki@gmail.com', 1, '92347392874', 'Mekanisa'),
 (26, 'Takur TAkur', 1646164646, 'segni.iresso@gmail.com', 1, '239874239847', 'ayer tena'),
-(27, 'Yabsira Mitiku', 9283495834, 'yab@gmail.com', 1, '9837923423987', 'Jemo');
+(27, 'Yabsira Mitiku', 9283495834, 'yab@gmail.com', 1, '9837923423987', 'Jemo'),
+(28, 'Tufa Bedhaso', 89641579843, 'Tufa@gmail.com', 1, '9287429874932847', 'Shashamanne'),
+(29, 'Dawit Morka Nure', 98329837432, 'Dave@gmail.com', 1, '2452454324', 'Addis Ababa');
 
 -- --------------------------------------------------------
 
@@ -243,11 +247,11 @@ INSERT INTO `room` (`room_id`, `room_type_id`, `room_no`, `status`, `check_in_st
 (3, 3, 'A-103', 1, 0, 1, 0),
 (4, 4, 'A-104', 1, 0, 0, 0),
 (5, 1, 'B-101', 1, 0, 0, 0),
-(6, 2, 'B-102', NULL, 0, 0, 1),
+(6, 2, 'B-102', 1, 1, 0, 0),
 (7, 3, 'B-103', 0, 0, 0, 0),
 (8, 4, 'B-104', 1, 1, 0, 0),
 (9, 1, 'C-101', 1, 0, 0, 0),
-(10, 2, 'C-102', NULL, 0, 0, 0),
+(10, 2, 'C-102', 1, 0, 0, 0),
 (11, 3, 'C-103', NULL, 0, 0, 1),
 (12, 4, 'C-104', NULL, 0, 0, 0),
 (13, 4, 'D-101', NULL, 0, 1, 1),
@@ -502,7 +506,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `booking_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `booking_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `complaint`
@@ -514,7 +518,7 @@ ALTER TABLE `complaint`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `customer_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `emp_history`
